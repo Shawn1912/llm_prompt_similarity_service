@@ -5,6 +5,8 @@ from .llm import query_llm
 
 app = Flask(__name__)
 
+SIMILARITY_THRESHOLD = 0.7
+
 @app.route('/api/similarity', methods=['POST'])
 def similarity():
     # Sanitize input
@@ -19,10 +21,9 @@ def similarity():
         similarity_score = cosine_similarity(prompt1, prompt2)
 
     # Define threshold for similarity to send to LLM
-    similarity_threshold = 0.7
     llm_response = None
 
-    if similarity_score > similarity_threshold:
+    if similarity_score > SIMILARITY_THRESHOLD:
         # Send one of the prompts to the LLM and sanitize the output
         raw_response = query_llm(prompt1)
         llm_response = sanitize_output(raw_response)
