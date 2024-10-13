@@ -1,14 +1,16 @@
 import unittest
-from src.api.app import app
+from src.api.sanitization import sanitize_input
 
-class TestApi(unittest.TestCase):
-    def setUp(self):
-        self.app = app.test_client()
-        self.app.testing = True
+class TestSanitization(unittest.TestCase):
+    def test_sanitize_input(self):
+        input_prompt = "<b>Test</b> with some extra text."
+        sanitized = sanitize_input(input_prompt)
+        self.assertEqual(sanitized, "Test with some extra text.")
 
-    def test_similarity_endpoint(self):
-        response = self.app.post('/api/similarity', json={"prompt1": "Hello", "prompt2": "World"})
-        self.assertEqual(response.status_code, 200)
+    def test_length_limit(self):
+        input_prompt = "a" * 600
+        sanitized = sanitize_input(input_prompt)
+        self.assertEqual(len(sanitized), 500)
 
 if __name__ == '__main__':
     unittest.main()
