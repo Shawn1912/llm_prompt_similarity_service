@@ -1,4 +1,4 @@
-# AI Similarity Service
+# LLM Prompt Similarity Service
 
 ## Directory Structure
 - src: contains the main source code for the Flask service
