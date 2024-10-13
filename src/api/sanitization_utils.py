@@ -1,7 +1,5 @@
 import re
 
-DISALLOWED_WORDS = ["hate", "kill", "stupid", "idiot", "dumb"]
-
 def validate_input_type(text):
     if not isinstance(text, str):
         raise ValueError("Invalid input type. Expected a string.")
@@ -26,5 +24,5 @@ def sanitize_html_and_js(text):
 def filter_inappropriate_content(input_text, word_list):
     # Remove or censor words based on the provided word list
     for word in word_list:
-        input_text = re.sub(rf'\b{word}\b', '***', input_text, flags=re.IGNORECASE)
+        input_text = re.sub(rf'\b{word}\b', '', input_text, flags=re.IGNORECASE)
     return input_text

@@ -1,8 +1,7 @@
 from flask import Flask, request, jsonify
-from .sanitization import sanitize_input
+from .sanitization import sanitize_input, sanitize_output
 from .similarity import jaccard_similarity, cosine_similarity
 from .llm import query_llm
-from .output_sanitization import sanitize_output
 
 app = Flask(__name__)
 
