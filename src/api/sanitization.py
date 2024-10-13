@@ -1,7 +1,14 @@
 import re
 
+MAX_PROMPT_LENGTH = 1000
+
 def sanitize_input(prompt):
-    # Strip HTML tags
-    prompt = re.sub(r'<.*?>', '', prompt)
-    # Limit prompt length
-    return prompt[:500]
+    prompt = strip_html_tags(prompt)
+    prompt = limit_prompt_length(prompt)
+    return prompt
+
+def strip_html_tags(prompt):
+    return re.sub(r'<.*?>', '', prompt)
+
+def limit_prompt_length(prompt):
+    return prompt[:MAX_PROMPT_LENGTH]
