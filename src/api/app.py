@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from .sanitization import sanitize_input
 from .similarity import jaccard_similarity, cosine_similarity
+from .llm import query_llm
 
 app = Flask(__name__)
 
@@ -17,11 +18,20 @@ def similarity():
     else:
         similarity_score = cosine_similarity(prompt1, prompt2)
 
+    # Define threshold for similarity to send to LLM
+    similarity_threshold = 0.7
+    llm_response = None
+
+    if similarity_score > similarity_threshold:
+        # Send one of the prompts to the LLM
+        llm_response = query_llm(prompt1)
+
     # Return response
     return jsonify({
         "message": "Similarity calculated successfully!",
         "similarity_score": similarity_score,
-        "metric_used": metric
+        "metric_used": metric,
+        "llm_response": llm_response
     })
 
 if __name__ == '__main__':
