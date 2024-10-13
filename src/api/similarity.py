@@ -1,7 +1,5 @@
-import numpy as np
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity as cosine_sim
-from collections import Counter
 
 def jaccard_similarity(str1, str2):
     # Tokenize the strings
