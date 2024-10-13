@@ -8,13 +8,15 @@ def validate_input_type(text):
 def limit_length(input_text, max_length=500):
     return input_text[:max_length]
 
-def reduce_repetitive_characters(input_text):
+def reduce_repetitive_characters(text):
     # Replace any character repeated more than 3 times with the character repeated 3 times
-    return re.sub(r'(.)\1{3,}', r'\1\1\1', input_text)
+    return re.sub(r'(.)\1{3,}', r'\1\1\1', text)
 
-def sanitize_html_and_js(input_text):
+def sanitize_html_and_js(text):
     # Remove all <script> tags and all other HTML tags
-    input_text = re.sub(r'<script.*?>.*?</script>', '', input_text, flags=re.IGNORECASE)
+    text = re.sub(r'<script.*?>.*?</script>', '', text, flags=re.IGNORECASE)
     # Remove all other HTML tags
-    input_text = re.sub(r'<.*?>', '', input_text)
-    return input_text
+    text = re.sub(r'<.*?>', '', text)
+    # Remove inline JavaScript event handlers (e.g., onclick, onmouseover)
+    text = re.sub(r'on[a-z]+="[^"]+"', '', text, flags=re.IGNORECASE)
+    return text
