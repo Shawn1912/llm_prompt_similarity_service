@@ -1,5 +1,9 @@
 import re
 
+def validate_input_type(text):
+    if not isinstance(text, str):
+        raise ValueError("Invalid input type. Expected a string.")
+    return text
 
 def limit_length(input_text, max_length=500):
     return input_text[:max_length]
