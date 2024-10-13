@@ -19,10 +19,26 @@
 
 3. Run the Flask service:
    ```
-   python src\api\app.py
+   python -m src.api.app
    ```
 
 4. Run the tests:
    ```
    python -m unittest discover tests
    ```
+
+## Docker Deployment
+
+### Building the Docker Image
+To build the Docker image, run:
+```
+docker build -t ai_similarity_service .
+```
+
+### Running the Docker Container
+To run the Docker container, execute:
+```
+docker run -p 5000:5000 ai_similarity_service
+```
+
+The service will be accessible at `http://127.0.0.1:5000/api/similarity`.
