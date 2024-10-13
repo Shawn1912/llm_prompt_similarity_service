@@ -1,5 +1,5 @@
 import unittest
-from src.api.output_sanitization import sanitize_output
+from src.api.sanitization import sanitize_output
 
 class TestOutputSanitization(unittest.TestCase):
     def test_sanitize_output_removes_disallowed_words(self):
