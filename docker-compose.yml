@@ -1,0 +1,16 @@
+services:
+  app:
+    build: .
+    ports:
+      - "5001:5000"
+    environment:
+      - ENV=production
+    command: gunicorn src.api.app:app -b 0.0.0.0:5000 --workers 4  # This starts the Flask app
+
+  test:
+    build: .
+    environment:
+      - ENV=test
+    command: python -m unittest discover tests
+    depends_on:
+      - app
