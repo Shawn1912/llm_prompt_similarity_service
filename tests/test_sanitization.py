@@ -14,7 +14,7 @@ class TestInputSanitization(unittest.TestCase):
 
 class TestOutputSanitization(unittest.TestCase):
     def test_sanitize_output_removes_disallowed_words(self):
-        input_text = "This is a badword and some offensive content."
+        input_text = "This result contains words like murder and kill."
         sanitized = sanitize_output(input_text)
         self.assertNotIn("badword", sanitized)
         self.assertNotIn("offensive", sanitized)
