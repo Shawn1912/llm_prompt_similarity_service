@@ -25,5 +25,13 @@ class TestApi(unittest.TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertIn("rejected", response.json.get("error").lower())
 
+    def test_sanitize_html(self):
+        response = self.app.post('/api/similarity', json={
+            "prompt1": "<script>alert('bad')</script>",
+            "prompt2": "Normal text"
+        })
+        self.assertEqual(response.status_code, 400)
+        self.assertIn("rejected", response.json.get("error").lower())
+
 if __name__ == '__main__':
     unittest.main()
