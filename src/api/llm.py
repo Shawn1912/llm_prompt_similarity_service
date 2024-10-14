@@ -1,10 +1,21 @@
-import random
+import os
+from dotenv import load_dotenv
+import cohere
+
+load_dotenv()
+
+COHERE_API_KEY = os.getenv("COHERE_API_KEY")
+
+co = cohere.Client(COHERE_API_KEY)
 
 def query_llm(prompt):
-    # Placeholder response for mock LLM interaction
-    responses = [
-        "This is a simulated response to the prompt.",
-        "Here's what the LLM thinks: it's a great idea!",
-        "The LLM suggests a thoughtful approach to the topic."
-    ]
-    return random.choice(responses)
+    try:
+        response = co.generate(
+            model='command-light',
+            prompt=prompt,
+            max_tokens=150,
+            temperature=0.7,
+        )
+        return response.generations[0].text
+    except Exception as e:
+        return f"Error communicating with LLM: {str(e)}"
