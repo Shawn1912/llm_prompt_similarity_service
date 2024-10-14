@@ -23,7 +23,7 @@ def sanitize_input(input_text):
     """
     input_text = validate_input_type(input_text)
     if is_excessively_disallowed(input_text, DISALLOWED_WORDS, 3):
-        raise ValueError("Input rejected due to excessive toxicity.")
+        raise ValueError("Input rejected: too many disallowed words")
     input_text = sanitize_html_and_js(input_text)
     input_text = limit_length(input_text, max_length=MAX_PROMPT_LENGTH)
     input_text = reduce_repetitive_characters(input_text)

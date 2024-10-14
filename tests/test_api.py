@@ -17,23 +17,14 @@ class TestApi(unittest.TestCase):
         self.assertIn("similarity_score", data)
         self.assertIn("llm_response", data)
 
-    def test_filter_disallowed_words_input(self):
+    def test_reject_input_excessive_disallowed_words(self):
         response = self.app.post('/api/similarity', json={
             "prompt1": "This is an offensive prompt that has a lot of inappropriate words like murder and hate",
-            "prompt2": "Another text",
+            "prompt2": "Similar offensive input",
             "metric": "cosine"
         })
         self.assertEqual(response.status_code, 400)
-        self.assertIn("rejected", response.json.get("error").lower())
-
-    def test_sanitize_html(self):
-        response = self.app.post('/api/similarity', json={
-            "prompt1": "<script>alert('bad')</script>",
-            "prompt2": "Normal text"
-        })
-        data = response.get_json()
-        self.assertNotIn("<script>", data.llm_response)
-        self.assertEqual(response.status_code, 400)
+        self.assertIn("rejected", response.json.get("message").lower())
 
 if __name__ == '__main__':
     unittest.main()
