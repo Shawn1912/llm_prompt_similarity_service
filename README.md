@@ -44,7 +44,13 @@
 - **400 Bad Request**: One or more inputs were rejected due to validation.
 ```json
 {
-  "error": "One or more inputs were rejected. Please provide appropriate content."
+   "error": "One or more inputs were rejected. Please provide appropriate content."
+}
+```
+   - **500 Internal Server Error**: An unexpected error occurred while processing the request.
+```json
+{
+  "error": "An unexpected error occurred. Please try again later."
 }
 ```
 ### Examples
