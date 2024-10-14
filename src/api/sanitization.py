@@ -20,10 +20,6 @@ def sanitize_input(input_text):
 
     Returns:
         str: The sanitized input text.
-
-    Raises:
-        InvalidInputError: If input_text is not a valid string.
-        ExcessiveDisallowedContentError: If input_text contains excessive disallowed content.
     """
     input_text = validate_input_type(input_text)
     if is_excessively_disallowed(input_text, DISALLOWED_WORDS, 3):
@@ -43,10 +39,6 @@ def sanitize_output(output_text):
 
     Returns:
         str: The sanitized output text.
-
-    Raises:
-        InvalidOutputError: If output_text is not a valid string.
-        ExcessiveDisallowedContentError: If output_text contains excessive disallowed content.
     """
     output_text = validate_input_type(output_text)
     output_text = limit_length(output_text, max_length=MAX_RESPONSE_LENGTH)
